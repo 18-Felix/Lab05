@@ -8,6 +8,8 @@ public class CollisionScript : MonoBehaviour
 {
     public int score;
     public Text Score;
+    public Text Timetxt;
+    private float time = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,20 @@ public class CollisionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time -= Time.deltaTime;
         Score.text = "Score: " + score;
+
+        Timetxt.text = "Time: " + time;
+        if (time <= 0 && score != 60)
+        {
+            SceneManager.LoadScene("Lose");
+        }
+
+        if (score == 60 && time > 0)
+        {
+            SceneManager.LoadScene("Win");
+        }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
